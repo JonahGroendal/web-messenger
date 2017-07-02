@@ -1,0 +1,91 @@
+html {
+  height: 100%;
+}
+body {
+  display: flex;
+  height: 100%;
+  flex-basis: auto;
+  flex-direction: column;
+}
+#header, #footer {
+  background-color: black;
+  background-color: black;
+}
+#header {
+  display: flex;
+  color: white;
+  font-size: 3em;
+}
+#message-display {
+  height: 2000px;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+  align-items: center;
+  background-color: grey;
+  flex: 1 0;
+}
+.message {
+  padding: .5em 1em 0 1em;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  border-style: hidden;
+  border-radius: 15px;
+  font-size: 1.2em;
+}
+.message-sent {
+  align-self: flex-end;
+  background-color: steelblue;
+  color: white;
+}
+.message-received {
+  align-self: flex-start;
+  background-color: whitesmoke;
+  color: black;
+}
+#footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#contacts-button {
+  height: 3em;
+  width: 6em;
+}
+#footer form {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#footer textarea {
+  flex-grow: 2;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+#footer input {
+  height: 2.5rem;
+  width: 6rem;
+  margin-left: 2em;
+}
+
+
+/*-------ContactsModal.php-----------------------------------*/
+
+#search {
+  width: 8em;
+}
+#contacts-display {
+  margin-top: 2em;
+  display:flex;
+  flex-direction: column;
+  height: 80%;
+  overflow: auto;
+  align-items: center;
+}
+.contact {
+  font-size: 1.5em;
+  padding: .5em 0 .5em 0;
+  width: 80%;
+
+}

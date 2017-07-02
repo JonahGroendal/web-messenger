@@ -1,0 +1,63 @@
+body {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+
+	background: url(../images/background.PNG) no-repeat center center fixed; 
+
+	background-size: cover;
+
+	background-color: #cccccc;
+
+
+}
+
+
+
+
+#parent {
+	display:flex;
+	flex-direction:column;
+	margin: auto;
+}
+
+
+
+#header {
+	background-color: black;
+	color: white;
+	display:flex;
+
+
+}
+
+#main-column{
+
+	display:flex;
+	flex-direction: column;  
+	justify-content: center; 
+	align-items: center;   
+
+
+	opacity:0.85;
+
+	background-color:white;
+	border: 4px solid;
+	border-color:lightgrey;
+
+	font-family:Arial;
+
+	
+	
+
+}
+
+#login-form {
+
+	flex-direction: column; 
+	justify-content: space-around; 
+	align-items: center;
+
+
+
+}
