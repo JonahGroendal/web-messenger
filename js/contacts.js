@@ -18,7 +18,7 @@ $(document).on("click", '.contact', function() {
   // Clear messageBox
   messageBox.value = "";
   // Reload messages
-  $("#message-display").load("ajax/getAllMessages.php");
+  $("#message-display").load("ajax/getAllMessages.php?markRead=true");
   // Set new peerId in cookeis for display in header of main
   $.post("ajax/getPeerName.php", function(data) {
     document.cookie = "peerName="+data;

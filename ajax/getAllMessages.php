@@ -33,7 +33,11 @@ while ($sMessage || $rMessage) {
     $rMessage = $rMessages->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT);
   }
 }
-
 echo $retStr;
+
+/* mark messages as read if requested */
+if (isset($_GET['markRead']) && $_GET['markRead'] == 'true')
+  $db->markMessagesAsRead($peerId);
+
 $db->close();
 ?>

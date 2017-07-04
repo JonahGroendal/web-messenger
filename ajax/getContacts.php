@@ -4,10 +4,10 @@ require_once '../FormatData.class.php';
 $peerName = $_GET['peerName'];
 $db = new DBConnection();
 $formatData = new FormatData();
-$contacts = $db->getContactsCursor($peerName);
+$contacts = $db->getContacts($peerName);
 
 $retStr = '';
-while ($contact = $contacts->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)){
+foreach ($contacts as $contact) {
   $retStr .= $formatData->contactHTML($contact);
 }
 echo ($retStr);

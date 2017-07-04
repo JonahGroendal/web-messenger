@@ -46,6 +46,20 @@ class DBConnection {
     $stmt->execute(array($senderID, $this->userId));
     return $stmt;
   }
+  public function getContacts($peerName) {
+    $contacts = array();
+    $contactsCursor = $this->getContactsCursor($peerName);
+    while ($contact = $contactsCursor->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)){
+      // check for new messages from contact
+      if ($this->sentNewMessage($contact['id']))
+        $contact['new_message_exists'] = true;
+      else
+        $contact['new_message_exists'] = false;
+
+      array_push($contacts, $contact);
+    }
+    return $contacts;
+  }
   public function getContactsCursor($peerName) {
     $sql = 'SELECT id, username, first_name, last_name, is_active FROM users WHERE first_name LIKE ? OR last_name LIKE ? ORDER BY first_name, last_name';
     $stmt = $this->dbh->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
@@ -95,14 +109,33 @@ class DBConnection {
       return null;
     }
   }
+  public function markMessagesAsRead($peerId) {
+    $sql = 'UPDATE message M INNER JOIN message_recipient MR ON M.id = MR.message_id SET MR.is_read = 1 WHERE MR.recipient_id = ? AND M.creator_id = ?';
+    try {
+      $stmt = $this->dbh->prepare($sql);
+      $stmt->execute(array($this->userId, $peerId));
+    }
+    catch (PDOException $e){
+      error_log("Error: ".$e);
+    }
+  }
   private function isFriend($peerId) {
-    return true;      //for now                                                               // Change this after presentation
+    return true;      //for now                                                               // Change this
     $sql = 'SELECT COUNT(*) FROM friendships WHERE (id1 = ? AND id2 = ?) OR (id1 = ? AND id2 = ?)';
     $stmt = $this->dbh->prepare($sql);
     $stmt->execute(array($this->userId, $peerId, $peerId, $this->userId));
     $row = $stmt->fetch();
-    if ($row[0] > 0) { return true; }
-    else { return false; }
+    if ($row[0] > 0) return true;
+    else return false;
+  }
+  private function sentNewMessage($peerId) {
+    $sql = 'SELECT COUNT(*) FROM message M INNER JOIN message_recipient MR ON M.id = MR.message_id WHERE M.creator_id = ? AND MR.recipient_id = ? and MR.is_read = 0';
+    $stmt = $this->dbh->prepare($sql);
+    $stmt->execute(array($peerId, $this->userId));
+    $row = $stmt->fetch();
+    if ($row[0] > 0) return true;
+    else return false;
   }
 }
+
 ?>

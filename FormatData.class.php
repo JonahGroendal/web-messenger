@@ -21,7 +21,12 @@ class FormatData {
     $retStr .= '  <div class="name">'."\n";
     $retStr .= '    '.$contact['first_name'].' '.$contact['last_name']."\n";
     $retStr .= '  </div>'."\n";
+    $retStr .= '  <div class="newMessage">'."\n";
+    if ($contact['new_message_exists'])
+      $retStr .= '    New message!'."\n";
+    $retStr .= '  </div>'."\n";
     $retStr .= '</button>'."\n";
+
     return $retStr;
   }
 }
